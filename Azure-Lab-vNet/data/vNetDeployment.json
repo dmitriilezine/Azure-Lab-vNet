@@ -3,8 +3,12 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualNetworkName": { "type": "string" },
-    "virtualNetworkAddressRange": {
-      "type": "array",
+    "virtualNetworkAddressRange1": {
+      "type": "string",
+      "metadata": { "description": "The address range of the new VNET in CIDR format" }
+    },
+    "virtualNetworkAddressRange2": {
+      "type": "string",
       "metadata": { "description": "The address range of the new VNET in CIDR format" }
     },
     "subnets": { "type": "array" },
@@ -28,7 +32,8 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[parameters('virtualNetworkAddressRange')]"
+            "[parameters('virtualNetworkAddressRange1')]",
+            "[parameters('virtualNetworkAddressRange2')]"
           ]
         },
         "dhcpOptions": {
