@@ -4,7 +4,7 @@
   "parameters": {
     "virtualNetworkName": { "type": "string" },
     "virtualNetworkAddressRange": {
-      "type": "string",
+      "type": "array",
       "metadata": { "description": "The address range of the new VNET in CIDR format" }
     },
     "subnets": { "type": "array" },

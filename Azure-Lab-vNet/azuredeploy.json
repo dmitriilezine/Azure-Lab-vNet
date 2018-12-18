@@ -9,9 +9,16 @@
         "description": "Specify the name for the vNet."
       }
     },
-    "vNetAddressRange": {
+    "vNetAddressRange1": {
       "type": "string",
       "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "Address range for vNet"
+      }
+    },
+    "vNetAddressRange2": {
+      "type": "string",
+      "defaultValue": "10.1.0.0/16",
       "metadata": {
         "description": "Address range for vNet"
       }
@@ -83,7 +90,8 @@
   },
   "variables": {
     "assetLocation": "https://raw.githubusercontent.com/dmitriilezine/Azure-Lab-vNet/master/Azure-Lab-vNet",
-    "virtualNetworkAddressRange": "[parameters('vNetAddressRange')]",
+    "virtualNetworkAddressRange1": "[parameters('vNetAddressRange1')]",
+    "virtualNetworkAddressRange2": "[parameters('vNetAddressRange2')]",
     "backendNetworkSubnet": "[parameters('BackendSubnet')]",
     "frontendNetworkSubnet": "[parameters('JumpServerSubnet')]",
     "azurepawNetworkSubnet": "[parameters('RDSSubnet')]",
@@ -120,7 +128,7 @@
     "adfsProxyNSGID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('adfsProxyNSGName'))]",
     "rdshostsNSGName": "[concat('RDSHosts-NSG',resourceGroup().name)]",
     "rdshostsNSGID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('rdshostsNSGName'))]",
-    
+
     "virtualNetworkName": "[concat(parameters('virtualNetworkName'),resourceGroup().name)]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "dnsServerSubnetName": "[concat('DNSServerSubnet',resourceGroup().name)]",
@@ -139,82 +147,89 @@
     "adfsProxySubnetID": "[concat(variables('vnetID'),'/subnets/',variables('adfsProxySubnetName'))]",
     "rdshostsSubnetName": "rdsHostsSubnet",
     "rdshostsSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('rdshostsSubnetName'))]",
-    
 
-    "subnets": [
-      {
-        "name": "[variables('dnsServerSubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('dnsServerNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('dnsServerNSGID')]"
+    "virtualNetworkAddressRange": [
+      { "value": "[variables('virtualNetworkAddressRange1')]" },
+      { "value": "[variables('virtualNetworkAddressRange2')]" }
+
+    ],
+
+      "subnets"
+      :
+      [
+        {
+          "name": "[variables('dnsServerSubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('dnsServerNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('dnsServerNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('backendSubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('backendNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('beNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('frontendSubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('frontendNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('feNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('pawSubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('azurepawNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('pawNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('adfsSubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('adfsNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('adfsNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('adfsProxySubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('adfsProxyNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('adfsProxyNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('rdshostsSubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('rdshostsNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('rdshostsNSGID')]"
+            }
+          }
+        },
+        {
+          "name": "[variables('aadProxySubnetName')]",
+          "properties": {
+            "addressPrefix": "[variables('aadProxyConnectorNetworkSubnet')]",
+            "networkSecurityGroup": {
+              "id": "[variables('aadProxyNSGID')]"
+            }
           }
         }
-      },
-      {
-        "name": "[variables('backendSubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('backendNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('beNSGID')]"
-          }
-        }
-      },
-      {
-        "name": "[variables('frontendSubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('frontendNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('feNSGID')]"
-          }
-        }
-      },
-      {
-        "name": "[variables('pawSubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('azurepawNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('pawNSGID')]"
-          }
-        }
-      },
-      {
-        "name": "[variables('adfsSubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('adfsNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('adfsNSGID')]"
-          }
-        }
-      },
-      {
-        "name": "[variables('adfsProxySubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('adfsProxyNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('adfsProxyNSGID')]"
-          }
-        }
-      },
-      {
-        "name": "[variables('rdshostsSubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('rdshostsNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('rdshostsNSGID')]"
-          }
-        }
-      },
-      {
-        "name": "[variables('aadProxySubnetName')]",
-        "properties": {
-          "addressPrefix": "[variables('aadProxyConnectorNetworkSubnet')]",
-          "networkSecurityGroup": {
-            "id": "[variables('aadProxyNSGID')]"
-          }
-        }
-      }
-    ]
+      ]
   },
   "resources": [
 
