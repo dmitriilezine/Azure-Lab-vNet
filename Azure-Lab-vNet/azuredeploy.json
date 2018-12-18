@@ -82,7 +82,7 @@
 
   },
   "variables": {
-    "assetLocation": "https://raw.githubusercontent.com/dmitriilezine/AzurePAW-POC-vNet/master/AzurePAW-POC-vNet",
+    "assetLocation": "https://raw.githubusercontent.com/dmitriilezine/Azure-Lab-vNet/master/Azure-Lab-vNet",
     "virtualNetworkAddressRange": "[parameters('vNetAddressRange')]",
     "backendNetworkSubnet": "[parameters('BackendSubnet')]",
     "frontendNetworkSubnet": "[parameters('JumpServerSubnet')]",
