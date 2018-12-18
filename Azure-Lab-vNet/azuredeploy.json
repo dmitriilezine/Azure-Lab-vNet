@@ -250,9 +250,9 @@
           "aadProxySubnetId": { "value": "[variables('aadProxySubnetID')]" },
           "adfsSubnetId": { "value": "[variables('adfsSubnetID')]" },
           "adfsProxySubnetId": { "value": "[variables('adfsProxySubnetID')]" },
-          "accountForest1NSGName": { "value": "[variables('rdshostsNSGName')]" },
-          "accountForest1SubnetName": { "value": "[variables('rdshostsSubnetName')]" },
-          "accountForest1SubnetId": { "value": "[variables('rdshostsSubnetID')]" },
+          "rdshostsNSGName": { "value": "[variables('rdshostsNSGName')]" },
+          "rdshostsSubnetName": { "value": "[variables('rdshostsSubnetName')]" },
+          "rdshostsSubnetId": { "value": "[variables('rdshostsSubnetID')]" },
           "sourceClientIP": { "value": "[variables('sourceClientIP')]" }
         }
       }
