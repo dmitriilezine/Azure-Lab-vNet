@@ -281,7 +281,7 @@
           "virtualNetworkAddressRange": {
             "value": [
               "variables('virtualNetworkAddressRange1')",
-              "variables('virtualNetworkAddressRange1')"
+              "variables('virtualNetworkAddressRange2')"
             ]
           },
           "dnsServerAddress": { "value": [ "[variables('dnsServerIpAddress')]" ] }
