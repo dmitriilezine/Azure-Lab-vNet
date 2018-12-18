@@ -32,8 +32,8 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[parameters('virtualNetworkAddressRange1')]",
-            "[parameters('virtualNetworkAddressRange2')]"
+            "[parameters('virtualNetworkAddressRange2')]",
+            "[parameters('virtualNetworkAddressRange1')]"
           ]
         },
         "dhcpOptions": {
