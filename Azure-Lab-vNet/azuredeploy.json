@@ -148,15 +148,8 @@
     "rdshostsSubnetName": "rdsHostsSubnet",
     "rdshostsSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('rdshostsSubnetName'))]",
 
-    "virtualNetworkAddressRange": [
-      { "value": "[variables('virtualNetworkAddressRange1')]" },
-      { "value": "[variables('virtualNetworkAddressRange2')]" }
-
-    ],
-
-      "subnets"
-      :
-      [
+    
+      "subnets": [
         {
           "name": "[variables('dnsServerSubnetName')]",
           "properties": {
@@ -285,7 +278,12 @@
         "parameters": {
           "virtualNetworkName": { "value": "[variables('virtualNetworkName')]" },
           "subnets": { "value": "[ variables('subnets') ]" },
-          "virtualNetworkAddressRange": { "value": "[variables('virtualNetworkAddressRange')]" },
+          "virtualNetworkAddressRange": {
+            "value": [
+              "variables('virtualNetworkAddressRange1')",
+              "variables('virtualNetworkAddressRange1')"
+            ]
+          },
           "dnsServerAddress": { "value": [ "[variables('dnsServerIpAddress')]" ] }
         }
       }
