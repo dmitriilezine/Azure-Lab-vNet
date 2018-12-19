@@ -139,7 +139,7 @@
       "name": "[parameters('beNSGName')]",
       "location": "[variables('location')]",
       "tags": {
-        "displayName": "BackEndNSG"
+        "displayName": "Domain Controllers NSG"
       },
       "properties": {
         "securityRules": [
@@ -164,7 +164,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "80",
-              "sourceAddressPrefix": "VirtualNetwork",
+              "sourceAddressPrefix": "[variables('adfsSubnetRange')]",
               "destinationAddressPrefix": "[variables('besubnetrange')]",
               "access": "Allow",
               "priority": 118,
@@ -172,13 +172,13 @@
             }
           },
           {
-            "name": "allow_RDP_from_RDS_to_BackEnd_Servers",
+            "name": "allow_RDP_from_RDS_Hosts_to_Domain_Controllers",
             "properties": {
               "description": "Allow RDP to AD Servers",
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
-              "sourceAddressPrefix": "[variables('pawSubnetRange')]",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
               "destinationAddressPrefix": "[variables('besubnetrange')]",
               "access": "Allow",
               "priority": 119,
@@ -186,7 +186,7 @@
             }
           },
           {
-            "name": "allow_RDP_from_FrontEnd_to_BackEnd_Servers",
+            "name": "allow_RDP_from_JumpServer_to_Domain Controllers",
             "properties": {
               "description": "Allow RDP to AD Servers",
               "protocol": "Tcp",
@@ -618,6 +618,20 @@
       "properties": {
         "securityRules": [
           {
+            "name": "allow_RDP_from_RDS_to_RDSConnector_Gateway_Servers",
+            "properties": {
+              "description": "Allow RDP to ADFS Servers",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Allow",
+              "priority": 119,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "allow_RDP_from_FrontEnd_to_PAW_Servers",
             "properties": {
               "description": "Allow RDP to AD Servers",
@@ -644,6 +658,20 @@
       },
       "properties": {
         "securityRules": [
+          {
+            "name": "allow_RDP_from_RDS_to_ADDProxy_Servers",
+            "properties": {
+              "description": "Allow RDP to ADD Proxy Servers",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3389",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 119,
+              "direction": "Inbound"
+            }
+          },
           {
             "name": "allow_RDP_from_FrontEnd_to_AAD_Proxy_Servers",
             "properties": {
@@ -678,7 +706,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
-              "sourceAddressPrefix": "[variables('pawSubnetRange')]",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
               "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
               "access": "Allow",
               "priority": 119,
@@ -719,7 +747,7 @@
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
-              "sourceAddressPrefix": "[variables('pawSubnetRange')]",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
               "destinationAddressPrefix": "[variables('adfsProxySubnetRange')]",
               "access": "Allow",
               "priority": 119,
@@ -754,7 +782,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "allow_RDP_from_RDS_to_DC_Servers",
+            "name": "allow_RDP_from_RDS_Hosts_to_DC_Servers",
             "properties": {
               "description": "Allow RDP to DC Servers",
               "protocol": "Tcp",
@@ -770,7 +798,7 @@
           {
             "name": "allow_RDP_from_JumpServer_to_RDSHosts_Servers",
             "properties": {
-              "description": "Allow RDP to DC Servers",
+              "description": "Allow RDP to RDS Hosts Servers",
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",

@@ -112,11 +112,11 @@
     "deployNSGs": "DeployNSGs",
     "deployNSGsId": "[concat('Microsoft.Resources/deployments/', variables('deployNSGs'))]",
 
-    "dnsServerNSGName": "[concat('DNSServerNSG',resourceGroup().name)]",
+    "dnsServerNSGName": "[concat('DNSServer-NSG',resourceGroup().name)]",
     "dnsServerNSGID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('dnsServerNSGName'))]",
-    "beNSGName": "[concat('BackEndNSG',resourceGroup().name)]",
+    "beNSGName": "[concat('DomainControllers-NSG',resourceGroup().name)]",
     "beNSGID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('beNSGName'))]",
-    "feNSGName": "[concat('JumpServerNSG',resourceGroup().name)]",
+    "feNSGName": "[concat('JumpServer-NSG',resourceGroup().name)]",
     "feNSGID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('feNSGName'))]",
     "pawNSGName": "[concat('RDS-NSG',resourceGroup().name)]",
     "pawNSGID": "[resourceId('Microsoft.Network/networkSecurityGroups',variables('pawNSGName'))]",
@@ -131,15 +131,15 @@
 
     "virtualNetworkName": "[concat(parameters('virtualNetworkName'),resourceGroup().name)]",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
-    "dnsServerSubnetName": "[concat('DNSServerSubnet',resourceGroup().name)]",
+    "dnsServerSubnetName": "DNSServerSubnet",
     "dnsServerSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('dnsServerSubnetName'))]",
-    "backendSubnetName": "[concat('BackEndSubnet',resourceGroup().name)]",
+    "backendSubnetName": "DomanControllersSubnet",
     "backendSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('backendSubnetName'))]",
-    "frontendSubnetName": "[concat('JumpServerSubnet',resourceGroup().name)]",
+    "frontendSubnetName": "JumpServerSubnet",
     "frontendSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('frontendSubnetName'))]",
-    "pawSubnetName": "[concat('rdsSubnet',resourceGroup().name)]",
+    "pawSubnetName": "rdsSubnet",
     "pawSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('pawSubnetName'))]",
-    "aadProxySubnetName": "[concat('aadProxySubnet',resourceGroup().name)]",
+    "aadProxySubnetName": "aadProxySubnet",
     "aadProxySubnetID": "[concat(variables('vnetID'),'/subnets/',variables('aadProxySubnetName'))]",
     "adfsSubnetName": "adfsSubnet",
     "adfsSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('adfsSubnetName'))]",
@@ -148,81 +148,121 @@
     "rdshostsSubnetName": "rdsHostsSubnet",
     "rdshostsSubnetID": "[concat(variables('vnetID'),'/subnets/',variables('rdshostsSubnetName'))]",
 
-    
-      "subnets": [
-        {
-          "name": "[variables('dnsServerSubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('dnsServerNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('dnsServerNSGID')]"
+
+    "subnets": [
+      {
+        "name": "[variables('dnsServerSubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('dnsServerNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('dnsServerNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
             }
-          }
-        },
-        {
-          "name": "[variables('backendSubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('backendNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('beNSGID')]"
-            }
-          }
-        },
-        {
-          "name": "[variables('frontendSubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('frontendNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('feNSGID')]"
-            }
-          }
-        },
-        {
-          "name": "[variables('pawSubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('azurepawNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('pawNSGID')]"
-            }
-          }
-        },
-        {
-          "name": "[variables('adfsSubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('adfsNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('adfsNSGID')]"
-            }
-          }
-        },
-        {
-          "name": "[variables('adfsProxySubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('adfsProxyNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('adfsProxyNSGID')]"
-            }
-          }
-        },
-        {
-          "name": "[variables('rdshostsSubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('rdshostsNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('rdshostsNSGID')]"
-            }
-          }
-        },
-        {
-          "name": "[variables('aadProxySubnetName')]",
-          "properties": {
-            "addressPrefix": "[variables('aadProxyConnectorNetworkSubnet')]",
-            "networkSecurityGroup": {
-              "id": "[variables('aadProxyNSGID')]"
-            }
-          }
+          ]
         }
-      ]
+      },
+      {
+        "name": "[variables('backendSubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('backendNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('beNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      },
+      {
+        "name": "[variables('frontendSubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('frontendNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('feNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      },
+      {
+        "name": "[variables('pawSubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('azurepawNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('pawNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      },
+      {
+        "name": "[variables('adfsSubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('adfsNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('adfsNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      },
+      {
+        "name": "[variables('adfsProxySubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('adfsProxyNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('adfsProxyNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      },
+      {
+        "name": "[variables('rdshostsSubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('rdshostsNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('rdshostsNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      },
+      {
+        "name": "[variables('aadProxySubnetName')]",
+        "properties": {
+          "addressPrefix": "[variables('aadProxyConnectorNetworkSubnet')]",
+          "networkSecurityGroup": {
+            "id": "[variables('aadProxyNSGID')]"
+          },
+          "serviceEndpoints": [
+            {
+              "service": "Microsoft.Storage"
+            }
+          ]
+        }
+      }
+    ]
   },
   "resources": [
 
