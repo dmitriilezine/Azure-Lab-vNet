@@ -172,7 +172,7 @@
             }
           },
           {
-            "name": "allow_RDP_from_RDS_Hosts_to_Domain_Controllers",
+            "name": "allow_RDP_from_RDS_Hosts_to_DCs",
             "properties": {
               "description": "Allow RDP to AD Servers",
               "protocol": "Tcp",
@@ -186,7 +186,7 @@
             }
           },
           {
-            "name": "allow_RDP_from_JumpServer_to_Domain Controllers",
+            "name": "allow_RDP_from_JumpServer_to_DCs",
             "properties": {
               "description": "Allow RDP to AD Servers",
               "protocol": "Tcp",
@@ -618,7 +618,7 @@
       "properties": {
         "securityRules": [
           {
-            "name": "allow_RDP_from_RDS_to_RDSConnector_Gateway_Servers",
+            "name": "allow_RDP_from_RDS_to_RDSCon_Gateway_Servers",
             "properties": {
               "description": "Allow RDP to ADFS Servers",
               "protocol": "Tcp",
