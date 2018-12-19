@@ -278,8 +278,8 @@
         "parameters": {
           "virtualNetworkName": { "value": "[variables('virtualNetworkName')]" },
           "subnets": { "value": "[ variables('subnets') ]" },
-          "virtualNetworkAddressRange1": { "value": "variables('virtualNetworkAddressRange1')" },
-          "virtualNetworkAddressRange2": { "value": "variables('virtualNetworkAddressRange2')" },
+          "virtualNetworkAddressRange1": { "value": "[variables('virtualNetworkAddressRange1')]" },
+          "virtualNetworkAddressRange2": { "value": "[variables('virtualNetworkAddressRange2')]" },
           "dnsServerAddress": { "value": [ "[variables('dnsServerIpAddress')]" ] }
         }
       }
