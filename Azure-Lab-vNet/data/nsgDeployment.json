@@ -603,6 +603,34 @@
               "priority": 103,
               "direction": "Inbound"
             }
+          },
+          {
+            "name": "deny_Other_TCP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('feSubnetRange')]",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_UDP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('feSubnetRange')]",
+              "access": "Deny",
+              "priority": 201,
+              "direction": "Inbound"
+            }
           }
         ]
       }
@@ -613,7 +641,7 @@
       "name": "[parameters('pawNSGName')]",
       "location": "[variables('location')]",
       "tags": {
-        "displayName": "PAW Subnet NSG"
+        "displayName": "RDS CB and Gateway Subnet NSG"
       },
       "properties": {
         "securityRules": [
@@ -632,7 +660,7 @@
             }
           },
           {
-            "name": "allow_RDP_from_FrontEnd_to_PAW_Servers",
+            "name": "allow_RDP_from_FrontEnd_to_RDSCBGW_Servers",
             "properties": {
               "description": "Allow RDP to AD Servers",
               "protocol": "Tcp",
@@ -642,6 +670,76 @@
               "destinationAddressPrefix": "[variables('pawSubnetRange')]",
               "access": "Allow",
               "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_ADDS_to_RDSCBGW_Servers",
+            "properties": {
+              "description": "Allow ADDS",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('besubnetrange')]",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Allow",
+              "priority": 121,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_RDSHosts_to_RDSCBGW_Servers",
+            "properties": {
+              "description": "Allow RDS Hosts",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Allow",
+              "priority": 122,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AADProxy_to_RDSCBGW_Servers",
+            "properties": {
+              "description": "Allow AADProxy Hosts",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Allow",
+              "priority": 123,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_TCP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_UDP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Deny",
+              "priority": 201,
               "direction": "Inbound"
             }
           }
@@ -685,6 +783,76 @@
               "priority": 120,
               "direction": "Inbound"
             }
+          },
+          {
+            "name": "allow_ADDS",
+            "properties": {
+              "description": "Allow ADDS",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('besubnetrange')]",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 121,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_RDSHosts",
+            "properties": {
+              "description": "Allow RDS Hosts",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 122,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_RDSCBGW",
+            "properties": {
+              "description": "Allow RDSCBGW",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('pawSubnetRange')]",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 123,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_TCP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_UDP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Deny",
+              "priority": 201,
+              "direction": "Inbound"
+            }
           }
         ]
       }
@@ -724,6 +892,48 @@
               "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
               "access": "Allow",
               "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_ADDS",
+            "properties": {
+              "description": "Allow ADDS",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('besubnetrange')]",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Allow",
+              "priority": 121,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_TCP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_UDP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Deny",
+              "priority": 201,
               "direction": "Inbound"
             }
           }
@@ -767,6 +977,34 @@
               "priority": 120,
               "direction": "Inbound"
             }
+          },
+          {
+            "name": "deny_Other_TCP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('adfsProxySubnetRange')]",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_UDP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('adfsProxySubnetRange')]",
+              "access": "Deny",
+              "priority": 201,
+              "direction": "Inbound"
+            }
           }
         ]
       }
@@ -781,21 +1019,7 @@
       },
       "properties": {
         "securityRules": [
-          {
-            "name": "allow_RDP_from_RDS_Hosts_to_DC_Servers",
-            "properties": {
-              "description": "Allow RDP to DC Servers",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "3389",
-              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
-              "destinationAddressPrefix": "[variables('beSubnetRange')]",
-              "access": "Allow",
-              "priority": 119,
-              "direction": "Inbound"
-            }
-          },
-          {
+         {
             "name": "allow_RDP_from_JumpServer_to_RDSHosts_Servers",
             "properties": {
               "description": "Allow RDP to RDS Hosts Servers",
@@ -806,6 +1030,76 @@
               "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
               "access": "Allow",
               "priority": 120,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_ADDS",
+            "properties": {
+              "description": "Allow ADDS",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('besubnetrange')]",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Allow",
+              "priority": 121,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_RDSCBGW",
+            "properties": {
+              "description": "Allow RDSCBGW",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('pawSubnetRange')]",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Allow",
+              "priority": 122,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AADProxy",
+            "properties": {
+              "description": "Allow AADProxy",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Allow",
+              "priority": 123,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_TCP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Deny",
+              "priority": 200,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "deny_Other_UDP",
+            "properties": {
+              "description": "deny remainder of Communications",
+              "protocol": "Udp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "*",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Deny",
+              "priority": 201,
               "direction": "Inbound"
             }
           }
