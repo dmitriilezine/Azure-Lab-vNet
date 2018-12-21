@@ -716,6 +716,34 @@
             }
           },
           {
+            "name": "allow_Internal_Subnet",
+            "properties": {
+              "description": "Allow Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('pawSubnetRange')]",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Allow",
+              "priority": 198,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AzureLoadBalancer",
+            "properties": {
+              "description": "Allow AzureLoadBalancer",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "AzureLoadBalancer",
+              "destinationAddressPrefix": "[variables('pawSubnetRange')]",
+              "access": "Allow",
+              "priority": 199,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "deny_Other_TCP",
             "properties": {
               "description": "deny remainder of Communications",
@@ -827,6 +855,34 @@
             }
           },
           {
+            "name": "allow_Internal_Subnet",
+            "properties": {
+              "description": "Allow Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 198,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AzureLoadBalancer",
+            "properties": {
+              "description": "Allow AzureLoadBalancer",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "AzureLoadBalancer",
+              "destinationAddressPrefix": "[variables('aadProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 199,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "deny_Other_TCP",
             "properties": {
               "description": "deny remainder of Communications",
@@ -910,6 +966,34 @@
             }
           },
           {
+            "name": "allow_Internal_Subnet",
+            "properties": {
+              "description": "Allow Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('adfsSubnetRange')]",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Allow",
+              "priority": 198,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AzureLoadBalancer",
+            "properties": {
+              "description": "Allow AzureLoadBalancer",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "AzureLoadBalancer",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Allow",
+              "priority": 199,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "deny_Other_TCP",
             "properties": {
               "description": "deny remainder of Communications",
@@ -979,6 +1063,34 @@
             }
           },
           {
+            "name": "allow_Internal_Subnet",
+            "properties": {
+              "description": "Allow Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('adfsProxySubnetRange')]",
+              "destinationAddressPrefix": "[variables('adfsProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 198,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AzureLoadBalancer",
+            "properties": {
+              "description": "Allow AzureLoadBalancer",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "AzureLoadBalancer",
+              "destinationAddressPrefix": "[variables('adfsProxySubnetRange')]",
+              "access": "Allow",
+              "priority": 199,
+              "direction": "Inbound"
+            }
+          },
+          {
             "name": "deny_Other_TCP",
             "properties": {
               "description": "deny remainder of Communications",
@@ -1019,7 +1131,7 @@
       },
       "properties": {
         "securityRules": [
-         {
+          {
             "name": "allow_RDP_from_JumpServer_to_RDSHosts_Servers",
             "properties": {
               "description": "Allow RDP to RDS Hosts Servers",
@@ -1072,6 +1184,34 @@
               "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
               "access": "Allow",
               "priority": 123,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_Internal_Subnet",
+            "properties": {
+              "description": "Allow Subnet",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Allow",
+              "priority": 198,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_AzureLoadBalancer",
+            "properties": {
+              "description": "Allow AzureLoadBalancer",
+              "protocol": "*",
+              "sourcePortRange": "*",
+              "destinationPortRange": "*",
+              "sourceAddressPrefix": "AzureLoadBalancer",
+              "destinationAddressPrefix": "[variables('rdshostsSubnetRange')]",
+              "access": "Allow",
+              "priority": 199,
               "direction": "Inbound"
             }
           },
