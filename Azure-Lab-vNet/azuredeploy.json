@@ -23,7 +23,7 @@
         "description": "Address range for vNet"
       }
     },
-    "BackendSubnet": {
+    "DomainControllersSubnet": {
       "type": "string",
       "defaultValue": "10.0.1.0/24",
       "metadata": {
@@ -37,11 +37,11 @@
         "description": "Address range for FE subnet"
       }
     },
-    "RDSSubnet": {
+    "RDSCBGWSubnet": {
       "type": "string",
       "defaultValue": "10.0.3.0/24",
       "metadata": {
-        "description": "Address range for RDS subnet"
+        "description": "Address range for RDS subnet, Connecttion Broker and Gateway"
       }
     },
     "ADFSSubnet": {
@@ -62,7 +62,7 @@
       "type": "string",
       "defaultValue": "10.0.7.0/24",
       "metadata": {
-        "description": "Address range for subnet"
+        "description": "Address range for RDS Session Hosts subnet"
       }
     },
     "AADProxySubnet": {
@@ -92,9 +92,9 @@
     "assetLocation": "https://raw.githubusercontent.com/dmitriilezine/Azure-Lab-vNet/master/Azure-Lab-vNet",
     "virtualNetworkAddressRange1": "[parameters('vNetAddressRange1')]",
     "virtualNetworkAddressRange2": "[parameters('vNetAddressRange2')]",
-    "backendNetworkSubnet": "[parameters('BackendSubnet')]",
+    "backendNetworkSubnet": "[parameters('DomainControllersSubnet')]",
     "frontendNetworkSubnet": "[parameters('JumpServerSubnet')]",
-    "azurepawNetworkSubnet": "[parameters('RDSSubnet')]",
+    "azurepawNetworkSubnet": "[parameters('RDSCBGWSubnet')]",
     "adfsNetworkSubnet": "[parameters('ADFSSubnet')]",
     "adfsProxyNetworkSubnet": "[parameters('ADFSProxySubnet')]",
     "rdshostsNetworkSubnet": "[parameters('RDSSessionHostSubnet')]",
