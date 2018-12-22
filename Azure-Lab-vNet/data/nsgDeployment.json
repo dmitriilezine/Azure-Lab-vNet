@@ -160,7 +160,7 @@
           {
             "name": "allow_HTTP",
             "properties": {
-              "description": "Allow HTTP Communication - Remove from DC Subnet to ADFS Subnet",
+              "description": "Allow HTTP Communication from ADFS",
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "80",
@@ -174,7 +174,7 @@
           {
             "name": "allow_RDP_from_RDS_Hosts_to_DCs",
             "properties": {
-              "description": "Allow RDP to AD Servers",
+              "description": "Allow RDP to AD Servers from RDS hosts",
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
@@ -188,7 +188,7 @@
           {
             "name": "allow_RDP_from_JumpServer_to_DCs",
             "properties": {
-              "description": "Allow RDP to AD Servers",
+              "description": "Allow RDP to AD Servers from Jumpserver",
               "protocol": "Tcp",
               "sourcePortRange": "*",
               "destinationPortRange": "3389",
@@ -962,6 +962,34 @@
               "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
               "access": "Allow",
               "priority": 121,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_HTTP_to_ADFS_Servers",
+            "properties": {
+              "description": "Allow HTTP to ADFS Servers",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "80",
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Allow",
+              "priority": 122,
+              "direction": "Inbound"
+            }
+          },
+          {
+            "name": "allow_HTTPS_to_ADFS_Servers",
+            "properties": {
+              "description": "Allow HTTP to ADFS Servers",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "443",
+              "sourceAddressPrefix": "VirtualNetwork",
+              "destinationAddressPrefix": "[variables('adfsSubnetRange')]",
+              "access": "Allow",
+              "priority": 123,
               "direction": "Inbound"
             }
           },
