@@ -37,7 +37,7 @@
         "description": "Address range for FE subnet"
       }
     },
-    "RDSCBGWSubnet": {
+    "RDSCbGwSubnet": {
       "type": "string",
       "defaultValue": "10.0.3.0/24",
       "metadata": {
@@ -65,7 +65,7 @@
         "description": "Address range for RDS Session Hosts subnet"
       }
     },
-    "AADProxySubnet": {
+    "AADApProxySubnet": {
       "type": "string",
       "defaultValue": "10.0.9.0/24",
       "metadata": {
@@ -79,7 +79,7 @@
         "description": "Address range for DNS server subnet"
       }
     },
-    "serverIPAddress": {
+    "DNSserverIPAddress": {
       "type": "string",
       "defaultValue": "10.0.10.4",
       "metadata": {
@@ -94,15 +94,15 @@
     "virtualNetworkAddressRange2": "[parameters('vNetAddressRange2')]",
     "backendNetworkSubnet": "[parameters('DomainControllersSubnet')]",
     "frontendNetworkSubnet": "[parameters('JumpServerSubnet')]",
-    "azurepawNetworkSubnet": "[parameters('RDSCBGWSubnet')]",
+    "azurepawNetworkSubnet": "[parameters('RDSCbGwSubnet')]",
     "adfsNetworkSubnet": "[parameters('ADFSSubnet')]",
     "adfsProxyNetworkSubnet": "[parameters('ADFSProxySubnet')]",
     "rdshostsNetworkSubnet": "[parameters('RDSSessionHostSubnet')]",
-    "aadProxyConnectorNetworkSubnet": "[parameters('AADProxySubnet')]",
+    "aadProxyConnectorNetworkSubnet": "[parameters('AADApProxySubnet')]",
     "dnsServerNetworkSubnet": "[parameters('DNSSubnet')]",
 
     "sourceClientIP": "127.0.0.1",
-    "dnsServerIpAddress": "[parameters('serverIPAddress')]",
+    "dnsServerIpAddress": "[parameters('DNSserverIPAddress')]",
 
     "vnetTemplateURL": "[concat(variables('assetLocation'),'/data/vNetDeployment.json')]",
     "nsgTemplateURL": "[concat(variables('assetLocation'),'/data/nsgDeployment.json')]",
